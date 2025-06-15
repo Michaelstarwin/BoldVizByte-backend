@@ -2,12 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const path = require('path');
 const contactRoutes = require('./routes/contact');
 
 dotenv.config();
-
-console.log("Mongo URI:", process.env.MONGO_URI); // Debug line
 
 const app = express();
 const PORT = process.env.PORT || 10000;
@@ -15,28 +12,22 @@ const PORT = process.env.PORT || 10000;
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend static files
-// app.use(express.static(path.join(__dirname, '../BoldVizByte-frontend')));
-
-// API route
+// API route only (because frontend is served from Netlify separately)
 app.use('/api/contact', contactRoutes);
 
-// Fallback route for frontend
-// app.get('*', (req, res) => {
- // res.sendFile(path.join(__dirname, '../BoldVizByte-frontend/index.html'));
-});
-
-// Connect to MongoDB
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
- .then(() => {
-  console.log("MongoDB connected");
+.then(() => {
+  console.log("✅ MongoDB connected");
+
+  // Start server after DB connected
   app.listen(PORT, () => {
-   console.log(`Server running on port ${PORT}`);
+    console.log(🚀 Server running on port ${PORT});
+  });
+})
+.catch(err => {
+  console.error("❌ MongoDB connection error:", err);
 });
- })
- .catch(err => {
-  console.error("MongoDB connection error:", err);
- });
