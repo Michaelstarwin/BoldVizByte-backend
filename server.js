@@ -16,14 +16,14 @@ app.use(cors());
 app.use(express.json());
 
 // Serve frontend static files
-app.use(express.static(path.join(__dirname, '../BoldVizByte-frontend')));
+// app.use(express.static(path.join(__dirname, '../BoldVizByte-frontend')));
 
 // API route
 app.use('/api/contact', contactRoutes);
 
 // Fallback route for frontend
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../BoldVizByte-frontend/index.html'));
+// app.get('*', (req, res) => {
+ // res.sendFile(path.join(__dirname, '../BoldVizByte-frontend/index.html'));
 });
 
 // Connect to MongoDB
