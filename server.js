@@ -10,7 +10,7 @@ dotenv.config();
 console.log("Mongo URI:", process.env.MONGO_URI); // Debug line
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 app.use(cors());
 app.use(express.json());
@@ -23,7 +23,7 @@ app.use('/api/contact', contactRoutes);
 
 // Fallback route for frontend
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../BoldVizByte-frontend/index.html'));
+  res.sendFile(path.join(__dirname, '../BoldVizByte-frontend/index.html'));
 });
 
 // Connect to MongoDB
